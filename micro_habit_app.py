@@ -57,8 +57,8 @@ def landing_page():
     st.button("Get Started", on_click=lambda: navigate("onboarding"))
     st.button("Go to dashboard", on_click=lambda: navigate("dashboard"))
 
-    st.title("test")
-    my_component("what")
+    # st.title("test")
+    # my_component("what")
 
 # 2. 👤 Onboarding & Personalization
 def onboarding():
@@ -68,8 +68,13 @@ def onboarding():
         "Write one sentence in journal",
         "Go for a walk",
         "Meditate",
-        "Eat a healthy snack"
+        "Eat a healthy snack",
+        "Other (custom)"
     ])
+    if habit == "Other (custom)":
+        custom_habit = st.text_input("Enter your custom habit:")
+        if custom_habit.strip():
+            habit = custom_habit.strip()
     timing = st.radio("When do you want to do this?", ["Morning", "Evening", "After an existing habit"])
     st.session_state.habit_data["habit"] = habit
     st.session_state.habit_data["timing"] = timing
@@ -119,6 +124,9 @@ def dashboard():
             st.warning("Please write a reflection before submitting.")
         else:
             prompt_template1 = f"""
+            User's selected habit:
+            {habit}
+
             User reflection:
             {journal}
 

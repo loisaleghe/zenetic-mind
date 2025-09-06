@@ -9,6 +9,12 @@ import pandas as pd
 #python -m streamlit run micro_habit_app.py
 #######################################
 
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("styles.css")
+
 # Session state initialization
 if "page" not in st.session_state:
     st.session_state.page = "landing"

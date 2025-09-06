@@ -7,7 +7,7 @@ const presetHabits = [
   "Drink a glass of water after waking up",
   "Stretch for 5 minutes",
   "Read one page of a book",
-  "Write down one thing you are grateful for",
+  "Write one sentence in journal",
 ];
 
 export default function Onboarding() {
@@ -27,12 +27,12 @@ export default function Onboarding() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4">
-      <h1 className="text-4xl font-bold mb-8">Onboarding</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen  text-white p-4">
+      <h2 className="text-3xl font-bold text-black">Select a Micro-Habit</h2>
+      <p className="text-black mb-8">Select one habit you would like to do</p>
 
-      <div className="w-full max-w-md">
-        <h2 className="text-2xl font-semibold mb-4">Choose a Micro-Habit</h2>
-        <div className="space-y-2">
+      <div className="w-full max-w-2xl ">
+        <div className="grid grid-cols-2 gap-4 mb-4">
           {presetHabits.map((habit) => (
             <button
               key={habit}
@@ -40,10 +40,10 @@ export default function Onboarding() {
                 setSelectedHabit(habit);
                 setCustomHabit("");
               }}
-              className={`w-full text-left p-4 rounded-lg transition-colors ${
+              className={`w-full text-left p-4 rounded-lg transition-colors border text-black ${
                 selectedHabit === habit
-                  ? "bg-blue-600"
-                  : "bg-gray-800 hover:bg-gray-700"
+                  ? "bg-white border-blue-600"
+                  : "bg-white border-gray-300 hover:bg-gray-50"
               }`}
             >
               {habit}
@@ -51,7 +51,6 @@ export default function Onboarding() {
           ))}
         </div>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Or Create Your Own</h2>
         <input
           type="text"
           value={customHabit}
@@ -60,10 +59,10 @@ export default function Onboarding() {
             setSelectedHabit("");
           }}
           placeholder="e.g., Meditate for 1 minute"
-          className="w-full p-4 rounded-lg bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600"
+          className="w-full p-4 rounded-lg bg-white text-black border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600"
         />
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">
+        <h2 className="text-2xl font-medium mt-8 mb-4 text-black text-center">
           When do you want to do it?
         </h2>
         <div className="grid grid-cols-2 gap-4">
@@ -71,10 +70,10 @@ export default function Onboarding() {
             <button
               key={time}
               onClick={() => setSelectedTime(time)}
-              className={`p-4 rounded-lg transition-colors ${
+              className={`p-4 rounded-lg transition-colors border text-black ${
                 selectedTime === time
-                  ? "bg-blue-600"
-                  : "bg-gray-800 hover:bg-gray-700"
+                  ? "bg-white border-blue-600"
+                  : "bg-white border-gray-300 hover:bg-gray-50"
               }`}
             >
               {time}
@@ -82,12 +81,20 @@ export default function Onboarding() {
           ))}
         </div>
 
-        <button
-          onClick={handleNext}
-          className="w-full mt-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors"
-        >
-          Next
-        </button>
+        <div className="flex gap-4 mt-8">
+          <button
+            onClick={() => setPage("landing")}
+            className="w-full py-3 bg-gray-200 text-black font-semibold rounded-lg shadow-md hover:bg-gray-300 transition-colors"
+          >
+            Back
+          </button>
+          <button
+            onClick={handleNext}
+            className="w-full py-3 blue-gradient-button text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

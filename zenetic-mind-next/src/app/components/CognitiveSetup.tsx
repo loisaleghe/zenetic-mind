@@ -6,9 +6,8 @@ import { useHabit } from "../context/HabitContext";
 const blockers = [
   "I don't have time.",
   "I'm too tired.",
-  "I'll do it later.",
   "It's not important.",
-  "I don't have one"
+  "I don't have one",
 ];
 
 export default function CognitiveSetup() {
@@ -27,14 +26,12 @@ export default function CognitiveSetup() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4">
-      <h1 className="text-4xl font-bold mb-8">Cognitive Setup</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen text-white p-4">
+      <h1 className="text-4xl font-bold text-black">Cognitive Setup</h1>
+      <p className="mb-8 text-black">What&apos;s a common blocker for you?</p>
 
-      <div className="w-full max-w-md">
-        <h2 className="text-2xl font-semibold mb-4">
-          What&apos;s a common blocker for you?
-        </h2>
-        <div className="space-y-2">
+      <div className="w-full max-w-2xl">
+        <div className="grid grid-cols-2 gap-4 mb-4">
           {blockers.map((blocker) => (
             <button
               key={blocker}
@@ -42,10 +39,10 @@ export default function CognitiveSetup() {
                 setSelectedBlocker(blocker);
                 setCustomBlocker("");
               }}
-              className={`w-full text-left p-4 rounded-lg transition-colors ${
+              className={`w-full text-left p-4 rounded-lg transition-colors border text-black ${
                 selectedBlocker === blocker
-                  ? "bg-blue-600"
-                  : "bg-gray-800 hover:bg-gray-700"
+                  ? "bg-white border-blue-600"
+                  : "bg-white border-gray-300 hover:bg-gray-50"
               }`}
             >
               {blocker}
@@ -53,7 +50,9 @@ export default function CognitiveSetup() {
           ))}
         </div>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Or Add Your Own</h2>
+        <h2 className="text-2xl font-semibold mt-8 mb-4 text-black">
+          Or Add Your Own
+        </h2>
         <input
           type="text"
           value={customBlocker}
@@ -62,15 +61,23 @@ export default function CognitiveSetup() {
             setSelectedBlocker("");
           }}
           placeholder="e.g., I feel overwhelmed"
-          className="w-full p-4 rounded-lg bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600"
+          className="w-full text-left p-4 rounded-lg transition-colors border bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600"
         />
 
-        <button
-          onClick={handleStart}
-          className="w-full mt-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors"
-        >
-          Start My Journey
-        </button>
+        <div className="flex gap-4 mt-8">
+          <button
+            onClick={() => setPage("onboarding")}
+            className="w-full py-3 bg-gray-200 text-black font-semibold rounded-lg shadow-md hover:bg-gray-300 transition-colors"
+          >
+            Back
+          </button>
+          <button
+            onClick={handleStart}
+            className="w-full py-3 blue-gradient-button text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors"
+          >
+            Start My Journey
+          </button>
+        </div>
       </div>
     </div>
   );

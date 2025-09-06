@@ -16,7 +16,7 @@ export default function Insights() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen text-white p-4">
       <h1 className="text-4xl font-bold mb-8">Your Progress</h1>
 
       <div className="w-full max-w-md text-center space-y-6">

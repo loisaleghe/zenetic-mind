@@ -20,7 +20,19 @@
 }
 
 body {
-  background: var(--background);
+  background: linear-gradient(to bottom, #FFFFFF 0%, #E4F1F2 100%);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.blue-gradient-text {
+    background: linear-gradient(to right, #4E5DDF 0%, #6EC2FE 100%);
+    -webkit-background-clip: text;  /* Clip background to text (Chrome/Safari) */
+    -webkit-text-fill-color: transparent; /* Make text color show background */
+    font-size: 3em;
+    font-weight: bold;
+}
+
+.blue-gradient-button {
+    background: linear-gradient(to right, #4E5DDF 0%, #6EC2FE 100%);
 }

@@ -35,7 +35,7 @@ interface ParsedLlmResponse {
 
 const LoadingSpinner = () => (
   <div className="flex justify-center items-center">
-    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black"></div>
   </div>
 );
 
@@ -137,7 +137,7 @@ Use a supportive, non-judgmental tone. Avoid elaboration or repetition.
 
   if (!habitData) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
+      <div className="flex flex-col items-center justify-center min-h-screen text-white">
         <LoadingSpinner />
         <p className="mt-2">Loading your habit...</p>
       </div>
@@ -145,24 +145,24 @@ Use a supportive, non-judgmental tone. Avoid elaboration or repetition.
   }
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-900 text-white p-4">
-      <h1 className="text-4xl font-bold my-8">Dashboard</h1>
+    <div className="flex flex-col items-center min-h-screen p-4">
+      <h1 className="text-4xl font-bold my-8 text-black">Dashboard</h1>
 
       <div className="w-full max-w-md space-y-6">
-        <div className="bg-gray-800 p-6 rounded-lg">
+        <div className="bg-white border border-gray-300 p-6 rounded-lg text-black">
           <h2 className="text-2xl font-semibold">Your Daily Habit</h2>
           <p className="text-lg mt-2">Today&apos;s Habit: {habitData.name}</p>
-          <p className="text-gray-400">Time: {habitData.time}</p>
+          <p className="text-gray-500">Time: {habitData.time}</p>
           <div className="flex space-x-4 mt-4">
             <button
               onClick={markDidIt}
-              className="flex-1 py-2 bg-green-600 rounded-lg hover:bg-green-700"
+              className="flex-1 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
             >
               I did it!
             </button>
             <button
               onClick={markDidntDoIt}
-              className="flex-1 py-2 bg-red-600 rounded-lg hover:bg-red-700"
+              className="flex-1 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
             >
               I didn&apos;t do it!
             </button>
@@ -170,14 +170,14 @@ Use a supportive, non-judgmental tone. Avoid elaboration or repetition.
           {message && <p className="text-center mt-4">{message}</p>}
         </div>
 
-        <div className="bg-gray-800 p-6 rounded-lg">
+        <div className="bg-white border border-gray-300 p-6 rounded-lg text-black">
           <h2 className="text-2xl font-semibold">Streak</h2>
           <p className="text-5xl font-bold text-center mt-2">
             {streak} <span className="text-2xl">days</span>
           </p>
         </div>
 
-        <div className="bg-gray-800 p-6 rounded-lg">
+        <div className="bg-white border border-gray-300 p-6 rounded-lg text-black">
           <h2 className="text-2xl font-semibold mb-2">How are you feeling?</h2>
           <div className="flex justify-around">
             {["😊", "😐", "😔"].map((m) => (
@@ -185,7 +185,7 @@ Use a supportive, non-judgmental tone. Avoid elaboration or repetition.
                 key={m}
                 onClick={() => setMood(m)}
                 className={`text-4xl p-2 rounded-full transition-all ${
-                  mood === m ? "bg-blue-600" : "hover:bg-gray-700"
+                  mood === m ? "bg-blue-200" : "hover:bg-gray-100"
                 }`}
               >
                 {m}
@@ -194,7 +194,7 @@ Use a supportive, non-judgmental tone. Avoid elaboration or repetition.
           </div>
         </div>
 
-        <div className="bg-gray-800 p-6 rounded-lg">
+        <div className="bg-white border border-gray-300 p-6 rounded-lg text-black">
           <h2 className="text-2xl font-semibold mb-2">Journal / Reflection</h2>
           <textarea
             value={journal}
@@ -202,12 +202,12 @@ Use a supportive, non-judgmental tone. Avoid elaboration or repetition.
               setJournal(e.target.value);
               setMessage("");
             }}
-            className="w-full h-24 p-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+            className="w-full h-24 p-2 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-black"
             placeholder="What's on your mind?"
           />
           <button
             onClick={submitReflection}
-            className="w-full mt-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700"
+            className="w-full mt-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             disabled={isLoading}
           >
             {isLoading ? <LoadingSpinner /> : "Submit for Reframing"}
@@ -215,14 +215,14 @@ Use a supportive, non-judgmental tone. Avoid elaboration or repetition.
         </div>
 
         {isLoading && (
-          <div className="bg-gray-800 p-6 rounded-lg">
+          <div className="bg-white border border-gray-300 p-6 rounded-lg text-black">
             <LoadingSpinner />
             <p className="text-center mt-2">Analyzing your thoughts...</p>
           </div>
         )}
 
         {llmResponse && (
-          <div className="bg-gray-800 p-6 rounded-lg">
+          <div className="bg-white border border-gray-300 p-6 rounded-lg text-black">
             <h2 className="text-2xl font-semibold mb-2">
               🧠 Thought Insight & Reframe
             </h2>

@@ -4,6 +4,8 @@ import requests
 import json
 import pandas as pd
 
+from my_component import my_component
+
 ##################################
 # in folder of app run this command
 #python -m streamlit run micro_habit_app.py
@@ -54,6 +56,9 @@ def landing_page():
     st.subheader("Build lasting habits with science-backed micro-actions.")
     st.button("Get Started", on_click=lambda: navigate("onboarding"))
     st.button("Go to dashboard", on_click=lambda: navigate("dashboard"))
+
+    st.title("test")
+    my_component("what")
 
 # 2. 👤 Onboarding & Personalization
 def onboarding():

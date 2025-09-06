@@ -16,10 +16,10 @@ export default function Insights() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen text-white p-4">
-      <h1 className="text-4xl font-bold mb-8">Your Progress</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+      <h1 className="text-4xl font-bold mb-8 text-black">Your Progress</h1>
 
-      <div className="w-full max-w-md text-center space-y-6">
+      <div className="w-full max-w-md text-center space-y-6 text-white">
         <div className="bg-gray-800 p-6 rounded-lg">
           <h2 className="text-2xl font-semibold">Current Habit</h2>
           <p className="text-lg mt-2">{habitData?.name || "No habit set"}</p>

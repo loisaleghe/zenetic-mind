@@ -1,7 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useHabit } from "../context/HabitContext";
+
+const mock_streaks = [
+  { day: "Sunday", number: 1, streak: false },
+  { day: "Monday", number: 2, streak: true },
+  { day: "Tuesday", number: 3, streak: true },
+  { day: "Wednesday", number: 4, streak: false },
+  { day: "Thursday", number: 5, streak: true },
+  { day: "Friday", number: 6, streak: false },
+  { day: "Saturday", number: 7, streak: true },
+];
 
 async function getLLMResponse(userInput: string, promptTemplate: string) {
   const finalPrompt = promptTemplate.replace("{user_input}", userInput);
@@ -148,7 +159,7 @@ Use a supportive, non-judgmental tone. Avoid elaboration or repetition.
     <div className="flex flex-col items-center min-h-screen p-4">
       <h1 className="text-4xl font-bold my-8 text-black">Dashboard</h1>
 
-      <div className="w-full max-w-md space-y-6">
+      <div className="w-full max-w-2xl space-y-6">
         <div className="bg-white border border-gray-300 p-6 rounded-lg text-black">
           <h2 className="text-2xl font-semibold">Your Daily Habit</h2>
           <p className="text-lg mt-2">Today&apos;s Habit: {habitData.name}</p>
@@ -172,9 +183,65 @@ Use a supportive, non-judgmental tone. Avoid elaboration or repetition.
 
         <div className="bg-white border border-gray-300 p-6 rounded-lg text-black">
           <h2 className="text-2xl font-semibold">Streak</h2>
-          <p className="text-5xl font-bold text-center mt-2">
-            {streak} <span className="text-2xl">days</span>
+          {/* <div className="flex justify-around mt-2 gap-2">
+            {mock_streaks.map((s, i) => (
+              <div
+                key={i}
+                className={`flex items-center justify-center text-center p-4 rounded-lg w-full ${
+                  s.streak ? "bg-blue-300 text-white" : "bg-gray-300"
+                }`}
+              >
+                {s.streak && (
+                  <Image
+                    src="/streak_smile.png"
+                    alt="Streak Smile"
+                    width={24}
+                    height={24}
+                    className="mx-auto mb-1 w-[24px] h-[24px]"
+                  />
+                )}
+                <div>
+                  <p className="text-xs font-semibold">
+                    {s.day.substring(0, 3)}
+                  </p>
+                  <p className="text-lg font-bold">{s.number}</p>
+                </div>
+              </div>
+            ))}
+          </div> */}
+          <p className="text-5xl font-bold text-center mt-4">
+            {streak} <span className="text-2xl">day(s)</span>
           </p>
+        </div>
+
+        <div className="bg-white border border-gray-300 p-6 rounded-lg text-black">
+          <h2 className="text-2xl font-semibold">Past Streaks</h2>
+          <div className="flex justify-around mt-2 gap-2">
+            {mock_streaks.map((s, i) => (
+              <div
+                key={i}
+                className={`flex items-center justify-center text-center p-4 rounded-lg w-full ${
+                  s.streak ? "bg-blue-300 text-white" : "bg-gray-300"
+                }`}
+              >
+                {s.streak && (
+                  <Image
+                    src="/streak_smile.png"
+                    alt="Streak Smile"
+                    width={24}
+                    height={24}
+                    className="mx-auto mb-1 w-[24px] h-[24px]"
+                  />
+                )}
+                <div>
+                  <p className="text-xs font-semibold">
+                    {s.day.substring(0, 3)}
+                  </p>
+                  <p className="text-lg font-bold">{s.number}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="bg-white border border-gray-300 p-6 rounded-lg text-black">
@@ -196,6 +263,30 @@ Use a supportive, non-judgmental tone. Avoid elaboration or repetition.
 
         <div className="bg-white border border-gray-300 p-6 rounded-lg text-black">
           <h2 className="text-2xl font-semibold mb-2">Journal / Reflection</h2>
+          <div className="text-sm text-gray-600 space-y-1 mb-2">
+            <p>Write a short reflection. These prompts may help:</p>
+            <ul className="list-disc list-inside pl-4">
+              <li>What was the situation: who, what, when, where?</li>
+              <li>
+                What did you feel: disappointed, depressed, angry, confused,
+                pleased?
+              </li>
+              <li>
+                What was going through your mind before you started to feel this
+                way?
+              </li>
+            </ul>
+            <p>Now, let’s go a little deeper. Try to complete this sentence:</p>
+            <p className="pl-4 italic">
+              If [this situation happens], then [this belief about myself must
+              be true].
+            </p>
+            <p>For example: &quot;If I miss a day, then I’m failing.&quot;</p>
+            <p>
+              This helps uncover the rules you might be living by—often without
+              realizing it.
+            </p>
+          </div>
           <textarea
             value={journal}
             onChange={(e) => {
@@ -207,7 +298,7 @@ Use a supportive, non-judgmental tone. Avoid elaboration or repetition.
           />
           <button
             onClick={submitReflection}
-            className="w-full mt-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="w-full mt-4 py-2 blue-gradient-button text-white rounded-lg hover:bg-blue-700"
             disabled={isLoading}
           >
             {isLoading ? <LoadingSpinner /> : "Submit for Reframing"}
@@ -241,12 +332,20 @@ Use a supportive, non-judgmental tone. Avoid elaboration or repetition.
           </div>
         )}
 
-        <button
-          onClick={() => setPage("insights")}
-          className="w-full mt-8 py-3 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 transition-colors"
-        >
-          View Insights
-        </button>
+        <div className="flex space-x-4">
+          <button
+            onClick={() => setPage("cognitive-setup")}
+            className="w-full mt-8 py-3 bg-gray-300 text-black font-semibold rounded-lg shadow hover:bg-gray-300 transition-colors"
+          >
+            Back
+          </button>
+          <button
+            onClick={() => setPage("insights")}
+            className="w-full mt-8 py-3 blue-gradient-button text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 transition-colors"
+          >
+            View Insights
+          </button>
+        </div>
       </div>
     </div>
   );

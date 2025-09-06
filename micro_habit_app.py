@@ -99,13 +99,36 @@ def dashboard():
     st.write(f"**Today's Habit:** {habit}")
     
     st.write(f"**Did you do it?**")
-    if st.button("I did it!"):
-        st.success("🎉 Great job!")
-        st.session_state.habit_data.setdefault("streak", 0)
-        st.session_state.habit_data["streak"] += 1
+    # using columns to keep them in the same row
+    did_it_btn, didnt_do_it_btn = st.columns([1, 1])
+
+    if "habit_completed_today" not in st.session_state:
+        st.session_state.habit_completed_today = False
+
+    with did_it_btn:
+        if st.button("I did it!", key="did_it"):
+            if not st.session_state.habit_completed_today:
+                st.success("🎉 Great job!")
+                st.session_state.habit_data.setdefault("streak", 0)
+                st.session_state.habit_data["streak"] += 1
+                st.session_state.habit_completed_today = True
+            else:
+                st.info("You've already marked this habit as done today!")
+       
+
+    with didnt_do_it_btn:
+        if st.button("I didn't do it!", key="didnt_do_it"):
+            st.error("🥲 Don't give up, you can always try again!")
+            if st.session_state.habit_completed_today:
+                # Only allow decrement if previously marked as done
+                st.session_state.habit_data.setdefault("streak", 0)
+                if st.session_state.habit_data["streak"] > 0:
+                    st.session_state.habit_data["streak"] -= 1
+                st.session_state.habit_completed_today = False
+        
 
     st.write(f"**Streak:** {st.session_state.habit_data.get('streak', 0)} days")
-    mood = st.radio("How did that feel?", ["😊", "😐", "😔"])
+    mood = st.radio("How do you feel?", ["😊", "😐", "😔"])
 
     journal = st.text_area(
         "Write a short reflection. These may help:\n"

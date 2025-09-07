@@ -216,11 +216,11 @@ Use a supportive, non-judgmental tone. Avoid elaboration or repetition.
 
         <div className="bg-white border border-gray-300 p-6 rounded-lg text-black">
           <h2 className="text-2xl font-semibold">Past Streaks</h2>
-          <div className="flex justify-around mt-2 gap-2">
+          <div className="flex flex-wrap justify-center mt-2 gap-2">
             {mock_streaks.map((s, i) => (
               <div
                 key={i}
-                className={`flex items-center justify-center text-center p-4 rounded-lg w-full ${
+                className={`flex items-center justify-center text-center p-2 rounded-lg flex-1 min-w-[80px] ${
                   s.streak ? "bg-blue-300 text-white" : "bg-gray-300"
                 }`}
               >
@@ -230,7 +230,7 @@ Use a supportive, non-judgmental tone. Avoid elaboration or repetition.
                     alt="Streak Smile"
                     width={24}
                     height={24}
-                    className="mx-auto mb-1 w-[24px] h-[24px]"
+                    className="mr-1 w-[24px] h-[24px]"
                   />
                 )}
                 <div>

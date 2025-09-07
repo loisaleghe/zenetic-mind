@@ -8,10 +8,10 @@ export default function LandingPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-5xl font-bold mb-4 blue-gradient-text pb-10">
+      <h1 className="text-5xl font-bold mb-2 blue-gradient-text pb-10">
         Zenetic Mind
       </h1>
-      <p className="text-xl mb-8">
+      <p className="text-xl text-center mb-8">
         Build lasting habits with science-backed micro-actions.
       </p>
       <button

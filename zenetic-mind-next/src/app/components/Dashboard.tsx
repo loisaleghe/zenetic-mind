@@ -16,7 +16,12 @@ const mock_streaks = [
 
 async function getLLMResponse(userInput: string, promptTemplate: string) {
   const finalPrompt = promptTemplate.replace("{user_input}", userInput);
+  
   try {
+    // Create AbortController for timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 300000); // 5 minutes
+    
     const response = await fetch("https://loisaleghe-ollama-dockerfile.hf.space/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -25,14 +30,22 @@ async function getLLMResponse(userInput: string, promptTemplate: string) {
         prompt: finalPrompt,
         stream: false,
       }),
+      signal: controller.signal, // Add abort signal
     });
+
+    // Clear timeout if request completes
+    clearTimeout(timeoutId);
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+    
     const data = await response.json();
     return data.response;
+    
   } catch (error) {
     console.error("Error getting LLM response:", error);
+    
     return "Sorry, I'm having trouble connecting to my thoughts right now.";
   }
 }
